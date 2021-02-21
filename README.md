@@ -16,7 +16,7 @@
     * we have to enable the traffic to and through internet and that where we edit this route table and add destination for the internet and will route it through IGW. 
        in routetable there is a option called routes
        10..200.0.0/16     local    active (default one)
-       0.0.0.0/16         ourIGW   (we have to add this under routes to access to the internet)
+       0.0.0.0/0         ourIGW   (we have to add this under routes to access to the internet)
     * make sure this route table associate with the subnet.
     * edit subnetassociation and add our subnet which we want to make it public.
     *This makes a subnet to a pulic subnet.  
@@ -43,3 +43,16 @@
   login in public instace and try ssh hostname@privateip  (it won't connect because we didn't provide pem key)
   now copy pem key in a file and give 400 permission to that file and now try 
   ssh -i examplekey.name hostanme@ipadress of private instance.
+  
+  9)NAT GATEWAT:
+  if you want to download any packages and for outbound we use NAT gateway.
+  craete NAT gateway in public subnet
+  update route table of private subnet and add route for internet traffic (0.0.0.0/0) usng NAT gateway
+  private subnet route table as follows
+  Destination     target
+  10.200.0.0/24   local
+  0.0.0.0/0       NAT gate way -ID
+  login to private ec2 instance through public ec2 instance over SSH
+  now try ping google.com to check the outbound internet access.
+  
+    
