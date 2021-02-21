@@ -27,3 +27,19 @@
    * now add this route to the subnet under subnet associations.
    * this will make this subnet as a private subnet.
 
+4)now create 2 ec2 instances,one is under public subnet with an auto assign publicis enabled.another ec2 instance under private subnet with auto assign public vpc Disabled.
+
+5)public ec2 instance security group while creating 
+  type        protocal             portrange          source
+  ssh          TCP                  22                MY IP  
+  
+6)we connect to private ec2 instance throught public instance through via SSH(port 22 for that)
+    type        protocal             portrange          source
+     ssh          TCP                  22               custom 
+     ICMP         ICMP               0.65535            custom
+     
+ 7)lets try to login to public instance.and try ping command to check the internet connection.
+ 8)Now try to connect to private instance through public instance
+  login in public instace and try ssh hostname@privateip  (it won't connect because we didn't provide pem key)
+  now copy pem key in a file and give 400 permission to that file and now try 
+  ssh -i examplekey.name hostanme@ipadress of private instance.
